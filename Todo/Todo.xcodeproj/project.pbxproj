@@ -141,6 +141,9 @@
 		D23F229B24E97C2B004C3B38 /* Todo */ = {
 			isa = PBXGroup;
 			children = (
+				D2A1711524E9807500FC2C31 /* Controller */,
+				D2A1711424E9806A00FC2C31 /* Model */,
+				D2A1711224E9805C00FC2C31 /* View */,
 				D23F229C24E97C2B004C3B38 /* AppDelegate.swift */,
 				D23F229E24E97C2B004C3B38 /* SceneDelegate.swift */,
 				D23F22A024E97C2B004C3B38 /* ViewController.swift */,
@@ -169,6 +172,27 @@
 				D23F22C324E97C2C004C3B38 /* Info.plist */,
 			);
 			path = TodoUITests;
+			sourceTree = "<group>";
+		};
+		D2A1711224E9805C00FC2C31 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D2A1711424E9806A00FC2C31 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D2A1711524E9807500FC2C31 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
