@@ -31,7 +31,12 @@ class AuthViewController: TodoBaseController {
         let mail = authView.mailTextField.text ?? ""
         let password = authView.passwordTextField.text ?? ""
         if (!mail.isEmpty && !password.isEmpty) {
-            authModel.login(mail: mail, password: password)
+            let result = authModel.login(mail: mail, password: password)
+            if(!result.isEmpty) {
+                print(result)
+                let vc = TodoListViewController()
+                navigationController?.pushViewController(vc, animated: true)
+            }
         }
     }
 }

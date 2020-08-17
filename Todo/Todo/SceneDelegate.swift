@@ -11,7 +11,7 @@ import Firebase
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
-    
+    var navigationController: UINavigationController?
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
        
@@ -19,9 +19,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
         FirebaseApp.configure()
+        navigationController = UINavigationController(rootViewController: AuthViewController())
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         window = UIWindow(windowScene: scene)
         window?.backgroundColor = UIColor.white
-        window?.rootViewController = AuthViewController()
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
     
