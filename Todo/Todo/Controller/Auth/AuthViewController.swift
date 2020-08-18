@@ -7,15 +7,15 @@
 //
 
 import UIKit
-
+import FirebaseAuth
 class AuthViewController: TodoBaseController {
-   private(set) lazy var authModel = AuthModel()
-   private(set) lazy var authView: AuthView = AuthView()
+    private(set) lazy var authModel = AuthModel()
+    private(set) lazy var authView: AuthView = AuthView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
+    
     override func setupLayout() {
         self.view = authView
         authView.mailTextField.delegate = self
@@ -28,23 +28,34 @@ class AuthViewController: TodoBaseController {
     
     
     @objc func loginEvent(){
-        let mail = authView.mailTextField.text ?? ""
-        let password = authView.passwordTextField.text ?? ""
-        if (!mail.isEmpty && !password.isEmpty) {
-            let result = authModel.login(mail: mail, password: password)
-            if(!result.isEmpty) {
-                print(result)
-                let vc = TodoListViewController()
-                navigationController?.pushViewController(vc, animated: true)
+        guard let email = authView.mailTextField.text, let password = authView.passwordTextField.text else {
+            return
+        }
+        Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
+            if (result?.user) != nil {
+                let vc = TodoListViewController(uuid: (result?.user.uid)!)
+                self.navigationController?.pushViewController(vc, animated: true)
+            } else {
+                self.alert(title: "メッセージ", message: "登録失敗しました")
             }
         }
+    }
+    
+    func alert(title:String, message:String) {
+        let alertController = UIAlertController(title: title,
+                                   message: message,
+                                   preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK",
+                                       style: .default,
+                                       handler: nil))
+        present(alertController, animated: true)
     }
 }
 
 extension AuthViewController: UITextFieldDelegate {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-           self.view.endEditing(true)
+        self.view.endEditing(true)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

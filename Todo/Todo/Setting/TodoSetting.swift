@@ -26,3 +26,24 @@ extension UIColor {
     }
 }
 
+extension UIView{
+    
+    func waitingOpen(){
+        let wating = UIActivityIndicatorView()
+        self.addSubview(wating)
+        let parent = self
+        wating.translatesAutoresizingMaskIntoConstraints = false
+        wating.centerXAnchor.constraint(equalTo: parent.centerXAnchor, constant: 0.0).isActive = true
+        wating.centerYAnchor.constraint(equalTo: parent.centerYAnchor, constant: 0.0).isActive = true
+        wating.style = .whiteLarge
+        wating.color = .white
+        wating.startAnimating()
+    }
+    func waitingClose(){
+        let watings = self.subviews.filter{ $0 is UIActivityIndicatorView }.map({ $0 as! UIActivityIndicatorView })
+        for waiting in watings{
+            waiting.stopAnimating()
+            waiting.removeFromSuperview()
+        }
+    }
+}

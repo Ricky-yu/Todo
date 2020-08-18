@@ -7,14 +7,7 @@
 //
 
 import UIKit
-import FirebaseAuth
+
 class AuthModel {
-    func login(mail:String, password:String)-> String {
-        var uuid:String = ""
-        Auth.auth().signIn(withEmail: mail, password: password) { [weak self] authResult, error in
-            print(authResult?.user.uid)
-            uuid = authResult?.user.uid ?? ""
-        }
-        return uuid
-   }
+    
 }
