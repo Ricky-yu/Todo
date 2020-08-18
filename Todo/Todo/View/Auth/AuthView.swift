@@ -69,7 +69,8 @@ class AuthView: BaseView {
     private func setLayout() {
         mailTextField.snp_makeConstraints{(make) -> Void in
             make.width.equalTo(screenWidth/2)
-            make.center.equalTo(self)
+            make.centerX.equalTo(self)
+            make.centerY.equalTo(self).offset(-40)
         }
         passwordTextField.snp_makeConstraints{(make) -> Void in
             make.width.equalTo(screenWidth/2)
