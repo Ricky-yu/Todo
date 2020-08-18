@@ -14,7 +14,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var navigationController: UINavigationController?
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-       
+        
         guard let scene = (scene as? UIWindowScene) else {
             return
         }
@@ -36,11 +36,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func sceneWillResignActive(_ scene: UIScene) {
-       
+        
     }
     
     func sceneWillEnterForeground(_ scene: UIScene) {
-       
+        
     }
     
     func sceneDidEnterBackground(_ scene: UIScene) {
