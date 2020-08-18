@@ -11,7 +11,7 @@ import UIKit
 class TodoListView: BaseView {
     let tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(TodoListCell.self, forCellReuseIdentifier: NSStringFromClass(TodoListCell.self))
+        tableView.register(TodoListCell.self, forCellReuseIdentifier: "TodoListCell")
         return tableView
     }()
     override init(frame: CGRect) {
@@ -31,7 +31,7 @@ class TodoListView: BaseView {
     private func setLayout() {
         tableView.snp_makeConstraints{(make) -> Void in
             make.width.equalTo(self)
-            make.height.equalTo(self).offset(-100)
+            make.height.equalTo(self)
             make.center.equalTo(self)
         }
     }

@@ -6,9 +6,9 @@ target 'Todo' do
   use_frameworks!
 
   # Pods for Todo
+pod 'Firebase/Core'
 pod 'Firebase/Analytics'
 pod 'Firebase/Auth'
-pod 'Firebase/Core'
 pod 'Firebase/Firestore'
 pod 'FirebaseFirestoreSwift'
 pod 'SnapKitExtend'
