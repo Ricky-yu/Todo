@@ -9,12 +9,26 @@
 import UIKit
 
 class TodoListViewController: TodoBaseController {
-
+    private let uuid:String
     override func viewDidLoad() {
         super.viewDidLoad()
-
+    }
+    
+    init(uuid:String) {
+        self.uuid = uuid
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func setupLayout() {
+        self.navigationItem.hidesBackButton = true
         self.view.backgroundColor = UIColor.pink
     }
+    
+    
     
 
     /*
