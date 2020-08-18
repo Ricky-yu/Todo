@@ -9,36 +9,36 @@
 import UIKit
 
 class TodoListViewController: TodoBaseController {
-    private let uuid:String
+    private var uuid: String?
+    private(set) lazy var todoLsitView: TodoListView = TodoListView()
+    
+    convenience init(uuid: String) {
+        self.init()
+        self.uuid = uuid
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    init(uuid:String) {
-        self.uuid = uuid
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     override func setupLayout() {
         self.navigationItem.hidesBackButton = true
         self.view.backgroundColor = UIColor.pink
+        self.view = todoLsitView
+        todoLsitView.tableView.delegate = self
+        todoLsitView.tableView.dataSource = self
     }
     
-    
-    
+}
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
     }
-    */
-
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(TodoListCell.self), for: indexPath) as? TodoListCell ?? tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        return cell
+    }
+ 
 }
