@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 class TodoBaseController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,6 +24,6 @@ class TodoBaseController: UIViewController {
     func setupLayout() {}
     
     func setupEvent() {}
-
+    
 }
 
