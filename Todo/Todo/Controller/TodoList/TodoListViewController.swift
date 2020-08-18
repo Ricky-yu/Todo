@@ -7,11 +7,10 @@
 //
 
 import UIKit
-import Firebase
 class TodoListViewController: TodoBaseController {
     private var uuid: String?
     private(set) lazy var todoLsitView: TodoListView = TodoListView()
-    private var db = Firestore.firestore()
+    private(set) lazy var myModel =  TodoListModel()
     private var todoList: [String]?
     convenience init(uuid: String) {
         self.init()
@@ -28,21 +27,18 @@ class TodoListViewController: TodoBaseController {
         self.view = todoLsitView
         todoLsitView.tableView.delegate = self
         todoLsitView.tableView.dataSource = self
-        let docRef = db.collection("users").document("mdn7oVXrkDcvXAgmnj7qPTaF5WK2")
-        
-        docRef.getDocument { (document, error) in
-            if let tasks = document.flatMap({
-                $0.data().flatMap({ (data) in
-                    return data["todoList"] as? [String]
-                })
-            }) {
-                self.todoList = tasks
-                self.todoLsitView.tableView.reloadData()
-            } else {
-                print("Document does not exist")
-            }
-        }
-        
+    }
+    
+    override func setupEvent() {
+        myModel.notificationCenter.addObserver(forName: .init(rawValue: "todoList"),
+                                               object: nil,
+                                               queue: nil,
+                                               using: { [unowned self] notification in
+                                                if let count = notification.userInfo?["todoList"] as? [String] {
+                                                    self.todoList = count
+                                                    self.todoLsitView.tableView.reloadData()
+                                                }
+        })
     }
     
 }
