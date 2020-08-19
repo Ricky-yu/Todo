@@ -7,15 +7,15 @@
 //
 
 import UIKit
-import Firebase
 class TodoListViewController: TodoBaseController {
-    private var uuid: String?
+    private var uuid: String = ""
     private(set) lazy var todoLsitView: TodoListView = TodoListView()
-    private var db = Firestore.firestore()
+    private(set) lazy var todoListModel =  TodoListModel()
     private var todoList: [String]?
     convenience init(uuid: String) {
         self.init()
         self.uuid = uuid
+        todoListModel.setup(uuid: uuid)
     }
     
     override func viewDidLoad() {
@@ -28,21 +28,18 @@ class TodoListViewController: TodoBaseController {
         self.view = todoLsitView
         todoLsitView.tableView.delegate = self
         todoLsitView.tableView.dataSource = self
-        let docRef = db.collection("users").document("mdn7oVXrkDcvXAgmnj7qPTaF5WK2")
-        
-        docRef.getDocument { (document, error) in
-            if let tasks = document.flatMap({
-                $0.data().flatMap({ (data) in
-                    return data["todoList"] as? [String]
-                })
-            }) {
-                self.todoList = tasks
-                self.todoLsitView.tableView.reloadData()
-            } else {
-                print("Document does not exist")
-            }
-        }
-        
+    }
+    
+    override func setupEvent() {
+        todoListModel.notificationCenter.addObserver(forName: .init(rawValue: "todoList"),
+                                                     object: nil,
+                                                     queue: nil,
+                                                     using: { [unowned self] notification in
+                                                        if let list = notification.userInfo?["todoList"] as? [String] {
+                                                            self.todoList = list
+                                                            self.todoLsitView.tableView.reloadData()
+                                                        }
+        })
     }
     
 }
@@ -55,7 +52,19 @@ extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TodoListCell", for: indexPath) as! TodoListCell
         cell.label.text = self.todoList?[indexPath.row] ?? ""
+        cell.iconButton.tag = indexPath.row
+        cell.iconButton.addTarget(self, action: Selector(("onSelectIconTapped:")), for: .touchUpInside)
         return cell
+    }
+    
+    @objc func onSelectIconTapped(_ sender:UIButton) {
+        if(sender.isSelected){
+            sender.setImage(UIImage(named: "iconDeleteBefore"), for: .normal)
+        } else {
+            sender.setImage(UIImage(named: "iconDelete"), for: .normal)
+        }
+        sender.isSelected = !sender.isSelected
+        todoListModel.touch(id: sender.tag)
     }
     
 }

@@ -12,6 +12,7 @@ class TodoListCell: TodoListBaseTableViewCell {
     let iconButton: UIButton = {
         let btn = UIButton()
         btn.setImage(UIImage(named: "iconDeleteBefore"), for: .normal)
+        btn.isSelected = false
         return btn
     }()
     
