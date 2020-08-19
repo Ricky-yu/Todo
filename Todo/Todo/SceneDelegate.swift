@@ -19,7 +19,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
         FirebaseApp.configure()
-        navigationController = UINavigationController(rootViewController: AuthViewController())
+        if(UserDefaults.standard.string(forKey: "isLogined") != nil) {
+            let vc = TodoListViewController(uuid: (UserDefaults.standard.string(forKey: "isLogined"))!)
+            navigationController = UINavigationController(rootViewController: vc)
+        } else {
+            navigationController = UINavigationController(rootViewController: AuthViewController())
+        }
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         window = UIWindow(windowScene: scene)
         window?.backgroundColor = UIColor.white
