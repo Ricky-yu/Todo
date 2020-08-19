@@ -21,7 +21,6 @@ class TodoListModel {
     }
     
     func setup(uuid: String) {
-        print(uuid)
         let docRef = db.collection("users").document(uuid)
         docRef.getDocument { (document, error) in
             if let tasks = document.flatMap({
@@ -29,9 +28,9 @@ class TodoListModel {
                     return data["todoList"] as? [String]
                 })
             }) {
-                print(tasks)
                 self.Task = tasks
             } else {
+                // TODO データが無い時の処理を考える
                 print("Document does not exist")
             }
         }
