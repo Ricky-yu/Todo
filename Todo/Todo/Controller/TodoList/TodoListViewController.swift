@@ -8,13 +8,13 @@
 
 import UIKit
 class TodoListViewController: TodoBaseController {
-    private var uuid: String = ""
     private(set) lazy var todoLsitView: TodoListView = TodoListView()
     private(set) lazy var todoListModel =  TodoListModel()
-    private var todoList: [String]?
+    private var todoList:[String:String]?
+    private var todoListKey: [Int]?
+    private var selectedDelteTaskIds: [Int]?
     convenience init(uuid: String) {
         self.init()
-        self.uuid = uuid
         todoListModel.setup(uuid: uuid)
     }
     
@@ -23,8 +23,10 @@ class TodoListViewController: TodoBaseController {
     }
     
     override func setupLayout() {
+        self.navigationController?.navigationBar.isHidden = false
         self.navigationItem.hidesBackButton = true
-        self.view.backgroundColor = UIColor.pink
+        self.navigationController?.navigationBar.barTintColor = UIColor.theme
+        self.view.backgroundColor = UIColor.theme
         self.view = todoLsitView
         todoLsitView.tableView.delegate = self
         todoLsitView.tableView.dataSource = self
@@ -35,11 +37,26 @@ class TodoListViewController: TodoBaseController {
                                                      object: nil,
                                                      queue: nil,
                                                      using: { [unowned self] notification in
-                                                        if let list = notification.userInfo?["todoList"] as? [String] {
+                                                        if let list = notification.userInfo?["todoList"] as? [String: String] {
+                                                            self.todoListKey = []
+                                                            for (key,_) in list {
+                                                                self.todoListKey!.append(Int(key)!)
+                                                            }
                                                             self.todoList = list
+                                                            self.todoListKey!.sort { $1 < $0 }
                                                             self.todoLsitView.tableView.reloadData()
                                                         }
         })
+        todoListModel.notificationCenter.addObserver(forName: .init(rawValue: "selectedDelteTaskIds"),
+                                                     object: nil,
+                                                     queue: nil,
+                                                     using: { [unowned self] notification in
+                                                        if let selectedDelteTaskIds = notification.userInfo?["selectedDelteTaskIds"] as? [Int] {
+                                                            self.selectedDelteTaskIds = selectedDelteTaskIds
+                                                        }
+        })
+        todoLsitView.deleteButton.addTarget(self, action: Selector(("onDeleteButtonTapped:")), for: .touchUpInside)
+        todoLsitView.addButton.addTarget(self, action: Selector(("onAddButtonTapped:")), for: .touchUpInside)
     }
     
 }
@@ -51,8 +68,16 @@ extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TodoListCell", for: indexPath) as! TodoListCell
-        cell.label.text = self.todoList?[indexPath.row] ?? ""
-        cell.iconButton.tag = indexPath.row
+        let index = self.todoListKey?[indexPath.row] ?? 0
+        cell.label.text = self.todoList?["\(index)"] ?? ""
+        cell.iconButton.tag = index
+        if(selectedDelteTaskIds?.firstIndex(of: index) != nil) {
+            cell.iconButton.isSelected = true
+            cell.iconButton.setImage(UIImage(named: "iconDelete"), for: .normal)
+        }else{
+            cell.iconButton.isSelected = false
+            cell.iconButton.setImage(UIImage(named: "iconDeleteBefore"), for: .normal)
+        }
         cell.iconButton.addTarget(self, action: Selector(("onSelectIconTapped:")), for: .touchUpInside)
         return cell
     }
@@ -64,7 +89,25 @@ extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
             sender.setImage(UIImage(named: "iconDelete"), for: .normal)
         }
         sender.isSelected = !sender.isSelected
-        todoListModel.touch(id: sender.tag)
+        todoListModel.addDeleteTaskId(id: sender.tag)
     }
     
+    @objc func onDeleteButtonTapped(_ sender:UIButton) {
+        todoListModel.deleteTasks()
+    }
+    
+    @objc func onAddButtonTapped(_ sender:UIButton) {
+        let alertController = UIAlertController(title: "タスクを追加",
+                                                message: "追加したいタスクを記入してください",
+                                                preferredStyle: .alert)
+        alertController.addTextField(configurationHandler: nil)
+        alertController.addAction(UIAlertAction(title: "OK",
+                                                style: .default,
+                                                handler: {(action: UIAlertAction) -> Void in
+                                                    let index = (self.todoListKey?.first ?? 0 )+1
+                                                    self.todoListModel.addTask(id: index, text: alertController.textFields!.first!.text!)
+                                                    
+        }))
+        present(alertController, animated: true)
+    }
 }
