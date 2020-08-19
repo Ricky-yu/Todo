@@ -11,6 +11,7 @@ import Firebase
 class TodoListModel {
     let notificationCenter = NotificationCenter()
     private var db = Firestore.firestore()
+    private var selectedDelteTaskIds = [Int]()
     private(set) var Task:[String] = []{
         didSet {
             notificationCenter.post(name: .init(rawValue: "todoList"),
@@ -19,9 +20,9 @@ class TodoListModel {
         }
     }
     
-    init() {
-        let docRef = db.collection("users").document("mdn7oVXrkDcvXAgmnj7qPTaF5WK2")
-        
+    func setup(uuid: String) {
+        print(uuid)
+        let docRef = db.collection("users").document(uuid)
         docRef.getDocument { (document, error) in
             if let tasks = document.flatMap({
                 $0.data().flatMap({ (data) in
@@ -33,6 +34,14 @@ class TodoListModel {
             } else {
                 print("Document does not exist")
             }
+        }
+    }
+    
+    @objc func touch(id: Int){
+        if let index = selectedDelteTaskIds.firstIndex(of: id) {
+            selectedDelteTaskIds.remove(at: index)
+        } else {
+            selectedDelteTaskIds.append(id)
         }
     }
 }

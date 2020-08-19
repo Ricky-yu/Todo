@@ -8,13 +8,14 @@
 
 import UIKit
 class TodoListViewController: TodoBaseController {
-    private var uuid: String?
+    private var uuid: String = ""
     private(set) lazy var todoLsitView: TodoListView = TodoListView()
-    private(set) lazy var myModel =  TodoListModel()
+    private(set) lazy var todoListModel =  TodoListModel()
     private var todoList: [String]?
     convenience init(uuid: String) {
         self.init()
         self.uuid = uuid
+        todoListModel.setup(uuid: uuid)
     }
     
     override func viewDidLoad() {
@@ -30,14 +31,14 @@ class TodoListViewController: TodoBaseController {
     }
     
     override func setupEvent() {
-        myModel.notificationCenter.addObserver(forName: .init(rawValue: "todoList"),
-                                               object: nil,
-                                               queue: nil,
-                                               using: { [unowned self] notification in
-                                                if let count = notification.userInfo?["todoList"] as? [String] {
-                                                    self.todoList = count
-                                                    self.todoLsitView.tableView.reloadData()
-                                                }
+        todoListModel.notificationCenter.addObserver(forName: .init(rawValue: "todoList"),
+                                                     object: nil,
+                                                     queue: nil,
+                                                     using: { [unowned self] notification in
+                                                        if let list = notification.userInfo?["todoList"] as? [String] {
+                                                            self.todoList = list
+                                                            self.todoLsitView.tableView.reloadData()
+                                                        }
         })
     }
     
@@ -51,7 +52,19 @@ extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TodoListCell", for: indexPath) as! TodoListCell
         cell.label.text = self.todoList?[indexPath.row] ?? ""
+        cell.iconButton.tag = indexPath.row
+        cell.iconButton.addTarget(self, action: Selector(("onSelectIconTapped:")), for: .touchUpInside)
         return cell
+    }
+    
+    @objc func onSelectIconTapped(_ sender:UIButton) {
+        if(sender.isSelected){
+            sender.setImage(UIImage(named: "iconDeleteBefore"), for: .normal)
+        } else {
+            sender.setImage(UIImage(named: "iconDelete"), for: .normal)
+        }
+        sender.isSelected = !sender.isSelected
+        todoListModel.touch(id: sender.tag)
     }
     
 }
