@@ -9,7 +9,7 @@
 import XCTest
 
 class TodoAuthUITests: XCTestCase {
-    
+     let app = XCUIApplication()
     override func setUp() {
         super.setUp()
         continueAfterFailure = false
@@ -21,16 +21,19 @@ class TodoAuthUITests: XCTestCase {
     }
     
     func testLoginFailed() {
-        let app = XCUIApplication()
-        let loginButton = app.buttons["loginButton"]
+    
         let mailTextField = app.textFields["mailTextField"]
-        let passwordTextField = app.secureTextFields["passwordTextField"]
-        
         mailTextField.tap()
         mailTextField.typeText("test234@example.com")
+        
+        let passwordTextField = app.secureTextFields["passwordTextField"]
         passwordTextField.tap()
         passwordTextField.typeText("test123")
+        
+       
+        let loginButton = app.buttons["loginButton"]
         loginButton.tap()
+        
         XCTAssertEqual(app.alerts.element.label, "メッセージ")
         XCTAssert(app.alerts.element.staticTexts["登録失敗しました"].exists)
         
@@ -38,16 +41,19 @@ class TodoAuthUITests: XCTestCase {
     
     
     func testLoginSuccess() {
-        let app = XCUIApplication()
-        let loginButton = app.buttons["loginButton"]
-        let mailTextField = app.textFields["mailTextField"]
-        let passwordTextField = app.secureTextFields["passwordTextField"]
         
+        let mailTextField = app.textFields["mailTextField"]
         mailTextField.tap()
         mailTextField.typeText("test123@example.com")
+        
+        let passwordTextField = app.secureTextFields["passwordTextField"]
         passwordTextField.tap()
         passwordTextField.typeText("test123")
+        
+        
+        let loginButton = app.buttons["loginButton"]
         loginButton.tap()
+        
         
     }
 }
