@@ -15,9 +15,10 @@ class AuthViewController: TodoBaseController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
     override func setupLayout() {
         self.view = authView
+        self.navigationController?.navigationBar.isHidden = true
+        self.view.backgroundColor = UIColor.theme
         authView.mailTextField.delegate = self
         authView.passwordTextField.delegate = self
     }
@@ -31,12 +32,16 @@ class AuthViewController: TodoBaseController {
         guard let email = authView.mailTextField.text, let password = authView.passwordTextField.text else {
             return
         }
+        authView.loginButton.isEnabled = false
         Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
+            self.authView.loginButton.isEnabled = true
             if (result?.user) != nil {
+                self.authModel.saveUserInfo(uuid: (result?.user.uid)!)
                 let vc = TodoListViewController(uuid: (result?.user.uid)!)
                 self.navigationController?.pushViewController(vc, animated: true)
             } else {
                 self.alert(title: "メッセージ", message: "登録失敗しました")
+                
             }
         }
     }

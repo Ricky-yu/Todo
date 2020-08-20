@@ -22,7 +22,7 @@ extension UIColor {
     }
     
     class var theme: UIColor {
-        return UIColor(red: 29/255, green: 221/255, blue: 43/255, alpha:1.0)
+        return UIColor(red: 27/255, green: 165/255, blue: 169/255, alpha:1.0)
     }
 }
 

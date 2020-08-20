@@ -9,5 +9,7 @@
 import UIKit
 
 class AuthModel {
-    
+    func saveUserInfo(uuid:String){
+        UserDefaults.standard.set(uuid, forKey: "isLogined")
+    }
 }
