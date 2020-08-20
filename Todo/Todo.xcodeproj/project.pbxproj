@@ -20,6 +20,7 @@
 		51707AAF24EBA1EB003C16C2 /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51707AAE24EBA1EB003C16C2 /* AuthModel.swift */; };
 		51707AB524EBA1F0003C16C2 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51707AB224EBA1F0003C16C2 /* AuthView.swift */; };
 		51707AB624EBA1F0003C16C2 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51707AB424EBA1F0003C16C2 /* BaseView.swift */; };
+		5177F3B924EE704800DA26F4 /* TodoAuthUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5177F3B824EE704800DA26F4 /* TodoAuthUITests.swift */; };
 		5180365424EE0953000D2AE7 /* TodoListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5180365324EE0953000D2AE7 /* TodoListModel.swift */; };
 		5D548EA76B6D33D91E140B59 /* Pods_TodoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C576FC83AC06E60AF3CA87B /* Pods_TodoUITests.framework */; };
 		7EF5EAFCF53D260DB63DF5ED /* Pods_Todo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B35791F1AF4E41C0D57142C8 /* Pods_Todo.framework */; };
@@ -35,6 +36,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		5177F3BB24EE704800DA26F4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D23F229124E97C2B004C3B38 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D23F229824E97C2B004C3B38;
+			remoteInfo = Todo;
+		};
 		D23F22B324E97C2C004C3B38 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D23F229124E97C2B004C3B38 /* Project object */;
@@ -68,6 +76,9 @@
 		51707AAE24EBA1EB003C16C2 /* AuthModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
 		51707AB224EBA1F0003C16C2 /* AuthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		51707AB424EBA1F0003C16C2 /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		5177F3B624EE704800DA26F4 /* TodoAuthUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TodoAuthUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5177F3B824EE704800DA26F4 /* TodoAuthUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoAuthUITests.swift; sourceTree = "<group>"; };
+		5177F3BA24EE704800DA26F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5180365324EE0953000D2AE7 /* TodoListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoListModel.swift; sourceTree = "<group>"; };
 		5BBDDA591E30B861F786BD60 /* Pods-TodoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TodoUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TodoUITests/Pods-TodoUITests.release.xcconfig"; sourceTree = "<group>"; };
 		6E74C0DE6711965F376C36F9 /* Pods-TodoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TodoUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TodoUITests/Pods-TodoUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -92,6 +103,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		5177F3B324EE704800DA26F4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D23F229624E97C2B004C3B38 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -235,6 +253,15 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
+		5177F3B724EE704800DA26F4 /* TodoAuthUITests */ = {
+			isa = PBXGroup;
+			children = (
+				5177F3B824EE704800DA26F4 /* TodoAuthUITests.swift */,
+				5177F3BA24EE704800DA26F4 /* Info.plist */,
+			);
+			path = TodoAuthUITests;
+			sourceTree = "<group>";
+		};
 		89F134EBEACD9EF357AD5932 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -251,6 +278,7 @@
 				D23F229B24E97C2B004C3B38 /* Todo */,
 				D23F22B524E97C2C004C3B38 /* TodoTests */,
 				D23F22C024E97C2C004C3B38 /* TodoUITests */,
+				5177F3B724EE704800DA26F4 /* TodoAuthUITests */,
 				D23F229A24E97C2B004C3B38 /* Products */,
 				1B324F5A9AEBA5CFB30ECC6D /* Pods */,
 				89F134EBEACD9EF357AD5932 /* Frameworks */,
@@ -263,6 +291,7 @@
 				D23F229924E97C2B004C3B38 /* Todo.app */,
 				D23F22B224E97C2C004C3B38 /* TodoTests.xctest */,
 				D23F22BD24E97C2C004C3B38 /* TodoUITests.xctest */,
+				5177F3B624EE704800DA26F4 /* TodoAuthUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -309,6 +338,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		5177F3B524EE704800DA26F4 /* TodoAuthUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5177F3BF24EE704800DA26F4 /* Build configuration list for PBXNativeTarget "TodoAuthUITests" */;
+			buildPhases = (
+				5177F3B224EE704800DA26F4 /* Sources */,
+				5177F3B324EE704800DA26F4 /* Frameworks */,
+				5177F3B424EE704800DA26F4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5177F3BC24EE704800DA26F4 /* PBXTargetDependency */,
+			);
+			name = TodoAuthUITests;
+			productName = TodoAuthUITests;
+			productReference = 5177F3B624EE704800DA26F4 /* TodoAuthUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		D23F229824E97C2B004C3B38 /* Todo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D23F22C624E97C2C004C3B38 /* Build configuration list for PBXNativeTarget "Todo" */;
@@ -372,10 +419,14 @@
 		D23F229124E97C2B004C3B38 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1130;
+				LastSwiftUpdateCheck = 1120;
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "CHEN SINYU";
 				TargetAttributes = {
+					5177F3B524EE704800DA26F4 = {
+						CreatedOnToolsVersion = 11.2;
+						TestTargetID = D23F229824E97C2B004C3B38;
+					};
 					D23F229824E97C2B004C3B38 = {
 						CreatedOnToolsVersion = 11.3.1;
 					};
@@ -405,11 +456,19 @@
 				D23F229824E97C2B004C3B38 /* Todo */,
 				D23F22B124E97C2C004C3B38 /* TodoTests */,
 				D23F22BC24E97C2C004C3B38 /* TodoUITests */,
+				5177F3B524EE704800DA26F4 /* TodoAuthUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		5177F3B424EE704800DA26F4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D23F229724E97C2B004C3B38 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -526,6 +585,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		5177F3B224EE704800DA26F4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5177F3B924EE704800DA26F4 /* TodoAuthUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D23F229524E97C2B004C3B38 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -566,6 +633,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		5177F3BC24EE704800DA26F4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D23F229824E97C2B004C3B38 /* Todo */;
+			targetProxy = 5177F3BB24EE704800DA26F4 /* PBXContainerItemProxy */;
+		};
 		D23F22B424E97C2C004C3B38 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D23F229824E97C2B004C3B38 /* Todo */;
@@ -598,6 +670,44 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		5177F3BD24EE704800DA26F4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = TodoAuthUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "uynis.nehc-example.com.TodoAuthUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Todo;
+			};
+			name = Debug;
+		};
+		5177F3BE24EE704800DA26F4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = TodoAuthUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "uynis.nehc-example.com.TodoAuthUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Todo;
+			};
+			name = Release;
+		};
 		D23F22C424E97C2C004C3B38 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -841,6 +951,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		5177F3BF24EE704800DA26F4 /* Build configuration list for PBXNativeTarget "TodoAuthUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5177F3BD24EE704800DA26F4 /* Debug */,
+				5177F3BE24EE704800DA26F4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D23F229424E97C2B004C3B38 /* Build configuration list for PBXProject "Todo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

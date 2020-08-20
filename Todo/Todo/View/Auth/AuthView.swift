@@ -9,47 +9,50 @@
 import UIKit
 
 class AuthView: BaseView {
-        let mailTextField: UITextField = {
-            let textField = UITextField()
-            textField.backgroundColor = UIColor.white
-            textField.textColor = UIColor.gray
-            textField.tintColor = UIColor.darkGray
-            textField.font = UIFont.systemFont(ofSize: 15)
-            textField.placeholder = "メールアドレス入力"
-            textField.layer.cornerRadius = 15
-            textField.borderStyle = .roundedRect
-            textField.clearButtonMode = .whileEditing
-            textField.returnKeyType = .done
-            return textField
-        }()
-        
-        let passwordTextField: UITextField = {
-               let textField = UITextField()
-               textField.backgroundColor = UIColor.white
-               textField.textColor = UIColor.gray
-               textField.tintColor = UIColor.darkGray
-               textField.font = UIFont.systemFont(ofSize: 15)
-               textField.placeholder = "パスワード入力"
-               textField.layer.cornerRadius = 15
-               textField.borderStyle = .roundedRect
-               textField.isSecureTextEntry = true
-               textField.clearButtonMode = .whileEditing
-               textField.returnKeyType = .done
-               return textField
-           }()
+    let mailTextField: UITextField = {
+        let textField = UITextField()
+        textField.backgroundColor = UIColor.white
+        textField.textColor = UIColor.gray
+        textField.tintColor = UIColor.darkGray
+        textField.font = UIFont.systemFont(ofSize: 15)
+        textField.placeholder = "メールアドレス入力"
+        textField.layer.cornerRadius = 15
+        textField.borderStyle = .roundedRect
+        textField.clearButtonMode = .whileEditing
+        textField.returnKeyType = .done
+        textField.accessibilityIdentifier = "mailTextField"
+        return textField
+    }()
     
-        let loginButton: UIButton = {
-            let loginBtn = UIButton()
-            let rgba = UIColor.pink
-            loginBtn.backgroundColor = rgba
-            loginBtn.setTitle("Login", for:.normal)
-            loginBtn.setTitleColor(UIColor.white, for: .normal)
-            loginBtn.titleLabel?.font = .boldSystemFont(ofSize: 20)
-            loginBtn.layer.borderWidth = 0.5
-            loginBtn.layer.borderColor = UIColor.black.cgColor
-            loginBtn.layer.cornerRadius = 5.0
-            return loginBtn
-        }()
+    let passwordTextField: UITextField = {
+        let textField = UITextField()
+        textField.backgroundColor = UIColor.white
+        textField.textColor = UIColor.gray
+        textField.tintColor = UIColor.darkGray
+        textField.font = UIFont.systemFont(ofSize: 15)
+        textField.placeholder = "パスワード入力"
+        textField.layer.cornerRadius = 15
+        textField.borderStyle = .roundedRect
+        textField.isSecureTextEntry = true
+        textField.clearButtonMode = .whileEditing
+        textField.returnKeyType = .done
+        textField.accessibilityIdentifier = "passwordTextField"
+        return textField
+    }()
+    
+    let loginButton: UIButton = {
+        let loginBtn = UIButton()
+        let rgba = UIColor.pink
+        loginBtn.backgroundColor = rgba
+        loginBtn.setTitle("Login", for:.normal)
+        loginBtn.setTitleColor(UIColor.white, for: .normal)
+        loginBtn.titleLabel?.font = .boldSystemFont(ofSize: 20)
+        loginBtn.layer.borderWidth = 0.5
+        loginBtn.layer.borderColor = UIColor.black.cgColor
+        loginBtn.layer.cornerRadius = 5.0
+        loginBtn.accessibilityIdentifier = "loginButton"
+        return loginBtn
+    }()
     override init(frame: CGRect) {
         super.init(frame: frame)
         setSubviews()
