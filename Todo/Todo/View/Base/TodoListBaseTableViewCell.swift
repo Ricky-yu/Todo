@@ -7,9 +7,8 @@
 //
 
 import UIKit
-import Reusable
 
-class TodoListBaseTableViewCell: UITableViewCell ,Reusable {
+class TodoListBaseTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
