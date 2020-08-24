@@ -19,7 +19,7 @@ class TodoListModel {
                                     userInfo: ["selectedDelteTaskIds": selectedDelteTaskIds])
         }
     }
-    private(set) var Task:[String: Any] = [:]{
+    private(set) var Task:[String] = []{
         didSet {
             notificationCenter.post(name: .init(rawValue: "todoList"),
                                     object: nil,
@@ -37,7 +37,7 @@ class TodoListModel {
             if let tasks = document.flatMap({
                 return $0.data()
             }) {
-                self.Task = tasks
+                self.Task = tasks["tasks"] as! [String]
             } else {
                 // TODO データが無い時の処理を考える
                 print("Document does not exist")
@@ -46,7 +46,6 @@ class TodoListModel {
     }
     
     @objc func addDeleteTaskId(id: Int){
-        print(id)
         if let index = selectedDelteTaskIds.firstIndex(of: id) {
             selectedDelteTaskIds.remove(at: index)
         } else {
@@ -56,23 +55,22 @@ class TodoListModel {
     
     @objc func deleteTasks(){
         for id in selectedDelteTaskIds {
-            db.collection("users").document(self.uuid).updateData([
-                "\(id)": FieldValue.delete(),
-            ]) { err in
-                if let err = err {
-                    print("Error updating document: \(err)")
-                } else {
-                    print("Document successfully updated")
-                }
+            self.Task.remove(at: id)
+        }
+        db.collection("users").document(self.uuid).updateData(["tasks": Task]) { err in
+            if let err = err {
+                print("Error updating document: \(err)")
+            } else {
+                print("Document successfully updated")
             }
         }
         selectedDelteTaskIds.removeAll()
         setDate(uuid: self.uuid)
     }
     
-    @objc func addTask(id: Int, text: String){
-        Task["\(id)"] = text
-        db.collection("users").document(self.uuid).setData(Task) { err in
+    @objc func addTask(text: String){
+        self.Task.append(text)
+        db.collection("users").document(self.uuid).setData(["tasks": Task]) { err in
             if let err = err {
                 print("Error writing document: \(err)")
             } else {

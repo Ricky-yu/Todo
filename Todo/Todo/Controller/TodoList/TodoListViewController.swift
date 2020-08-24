@@ -10,8 +10,7 @@ import UIKit
 class TodoListViewController: TodoBaseController {
     private(set) lazy var todoLsitView: TodoListView = TodoListView()
     private(set) lazy var todoListModel =  TodoListModel()
-    private var todoList:[String:String]?
-    private var todoListKey: [Int]?
+    private var todoList:[String]?
     private var selectedDelteTaskIds: [Int]?
     convenience init(uuid: String) {
         self.init()
@@ -20,6 +19,10 @@ class TodoListViewController: TodoBaseController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    deinit {
+        todoListModel.notificationCenter.removeObserver(self)
     }
     
     override func setupLayout() {
@@ -37,13 +40,8 @@ class TodoListViewController: TodoBaseController {
                                                      object: nil,
                                                      queue: nil,
                                                      using: { [unowned self] notification in
-                                                        if let list = notification.userInfo?["todoList"] as? [String: String] {
-                                                            self.todoListKey = []
-                                                            for (key,_) in list {
-                                                                self.todoListKey!.append(Int(key)!)
-                                                            }
+                                                        if let list = notification.userInfo?["todoList"] as? [String] {
                                                             self.todoList = list
-                                                            self.todoListKey!.sort { $1 < $0 }
                                                             self.todoLsitView.tableView.reloadData()
                                                         }
         })
@@ -68,10 +66,9 @@ extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TodoListCell", for: indexPath) as! TodoListCell
-        let index = self.todoListKey?[indexPath.row] ?? 0
-        cell.label.text = self.todoList?["\(index)"] ?? ""
-        cell.iconButton.tag = index
-        if(selectedDelteTaskIds?.firstIndex(of: index) != nil) {
+        cell.label.text = self.todoList?[indexPath.row] ?? ""
+        cell.iconButton.tag = indexPath.row
+        if(selectedDelteTaskIds?.firstIndex(of: indexPath.row) != nil) {
             cell.iconButton.isSelected = true
             cell.iconButton.setImage(UIImage(named: "iconDelete"), for: .normal)
         }else{
@@ -104,9 +101,7 @@ extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
         alertController.addAction(UIAlertAction(title: "OK",
                                                 style: .default,
                                                 handler: {(action: UIAlertAction) -> Void in
-                                                    let index = (self.todoListKey?.first ?? 0 )+1
-                                                    self.todoListModel.addTask(id: index, text: alertController.textFields!.first!.text!)
-                                                    
+                                                    self.todoListModel.addTask(text: alertController.textFields!.first!.text!)
         }))
         present(alertController, animated: true)
     }
