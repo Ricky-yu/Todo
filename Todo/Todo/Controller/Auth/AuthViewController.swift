@@ -36,7 +36,6 @@ class AuthViewController: TodoBaseController {
         Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
             self.authView.loginButton.isEnabled = true
             if (result?.user) != nil {
-                self.authModel.saveUserInfo(uuid: (result?.user.uid)!)
                 let vc = TodoListViewController(uuid: (result?.user.uid)!)
                 self.navigationController?.pushViewController(vc, animated: true)
             } else {
