@@ -8,7 +8,7 @@
 
 import UIKit
 class TodoListViewController: TodoBaseController {
-    private(set) lazy var todoLsitView: TodoListView = TodoListView()
+    private(set) lazy var todoListView: TodoListView = TodoListView()
     private(set) lazy var todoListModel =  TodoListModel()
     private var todoList:[String] = []
     private var selectedDelteTaskIds: [Int]?
@@ -30,9 +30,10 @@ class TodoListViewController: TodoBaseController {
         self.navigationItem.hidesBackButton = true
         self.navigationController?.navigationBar.barTintColor = UIColor.theme
         self.view.backgroundColor = UIColor.theme
-        self.view = todoLsitView
-        todoLsitView.tableView.delegate = self
-        todoLsitView.tableView.dataSource = self
+        self.view = todoListView
+        todoListView.tableView.delegate = self
+        todoListView.tableView.dataSource = self
+        
     }
     
     override func setupEvent() {
@@ -42,7 +43,7 @@ class TodoListViewController: TodoBaseController {
                                                      using: { [unowned self] notification in
                                                         if let list = notification.userInfo?["todoList"] as? [String] {
                                                             self.todoList = list
-                                                            self.todoLsitView.tableView.reloadData()
+                                                            self.todoListView.tableView.reloadData()
                                                         }
         })
         todoListModel.notificationCenter.addObserver(forName: .init(rawValue: "selectedDelteTaskIds"),
