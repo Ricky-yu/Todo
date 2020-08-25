@@ -51,11 +51,14 @@ class TodoListModel {
         } else {
             selectedDelteTaskIds.append(id)
         }
+        selectedDelteTaskIds.sort()
     }
     
     @objc func deleteTasks(){
+        var index = 0;
         for id in selectedDelteTaskIds {
-            self.Task.remove(at: id)
+            self.Task.remove(at: id-index)
+            index+=1
         }
         db.collection("users").document(self.uuid).updateData(["tasks": Task]) { err in
             if let err = err {

@@ -10,7 +10,7 @@ import UIKit
 class TodoListViewController: TodoBaseController {
     private(set) lazy var todoLsitView: TodoListView = TodoListView()
     private(set) lazy var todoListModel =  TodoListModel()
-    private var todoList:[String]?
+    private var todoList:[String] = []
     private var selectedDelteTaskIds: [Int]?
     convenience init(uuid: String) {
         self.init()
@@ -62,13 +62,14 @@ class TodoListViewController: TodoBaseController {
 extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return todoList?.count ?? 0
+        return todoList.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TodoListCell", for: indexPath) as! TodoListCell
-        cell.label.text = self.todoList?[indexPath.row] ?? ""
-        cell.iconButton.tag = indexPath.row
-        if(selectedDelteTaskIds?.firstIndex(of: indexPath.row) != nil) {
+        let index = todoList.count - indexPath.row - 1
+        cell.label.text = self.todoList[index]
+        cell.iconButton.tag = index
+        if(selectedDelteTaskIds?.firstIndex(of: index) != nil) {
             cell.iconButton.isSelected = true
             cell.iconButton.setImage(UIImage(named: "iconDelete"), for: .normal)
         }else{
